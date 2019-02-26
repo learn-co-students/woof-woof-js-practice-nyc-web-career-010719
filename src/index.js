@@ -35,24 +35,24 @@ function showPupInfo(e){
       let dog = dogs.find(d => d.id == e.target.dataset.id)
       dogInfo.innerHTML = `<img src=${dog.image}>
       <br><h2>${dog.name}</h2>`
-      if (dog.isGoodDog == "true") {
+      if (dog.isGoodDog == true) {
         dogInfo.innerHTML += `<button data-action="true" data-id=${dog.id}> Good Dog! </button>`
       }
       else {
-        dogInfo.innerHTML += `<button data-action="false" data-id=${dog.id}> Bad Dog! </button>`
+        dogInfo.innerHTML += `<button data-action="" data-id=${dog.id}> Bad Dog! </button>`
       }
     }
   }
 
 function displayGoodBadDog(e){
     dogInfo = document.querySelector('#dog-info')
-    if (e.target.dataset.action == "false"){
+    if (e.target.dataset.action == ""){
       dogInfo.querySelector('button').innerText = "Good Dog!"
       dogInfo.querySelector('button').dataset.action = "true"
     }
     else if (e.target.dataset.action == "true") {
       dogInfo.querySelector('button').innerText = "Bad Dog!"
-      dogInfo.querySelector('button').dataset.action = "false"
+      dogInfo.querySelector('button').dataset.action = ""
     }
     updateGoodBadData();
   }
@@ -60,7 +60,7 @@ function displayGoodBadDog(e){
 function updateGoodBadData(){
   let id = dogInfo.querySelector('button').dataset.id
   let name = dogInfo.querySelector('h2').innerText
-  let isGoodDog = dogInfo.querySelector('button').dataset.action
+  let isGoodDog = Boolean(dogInfo.querySelector('button').dataset.action)
   let image = dogInfo.querySelector('img').src
   let data = {
     id: id,
@@ -90,7 +90,7 @@ function updateFilter(e){
   e.preventDefault();
   if (e.target.innerText.includes('OFF')){
     e.target.innerText = "Filter good dogs: ON"
-    goodDogs = dogs.filter(dog => dog.isGoodDog == "true")
+    goodDogs = dogs.filter(dog => dog.isGoodDog == true)
     showDogs(goodDogs)
   } else {
     e.target.innerText = "Filter good dogs: OFF"
