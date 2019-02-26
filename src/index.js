@@ -2,18 +2,12 @@ url = 'http://localhost:3000/pups/'
 alldogs = []
 document.addEventListener("DOMContentLoaded", function(event) {
   fetchToys()
-  let dogBar = document.querySelector('#dog-bar')
+  let dogCard = document.querySelector('#dog-bar')
   let summaryContainer = document.querySelector('#dog-info')
   let filter = document.querySelector('#good-dog-filter')
+  dogCard.addEventListener('click', grabDogCard)
   filter.addEventListener('click', flip)
-  dogBar.addEventListener('click', grabDogCard)
 });
-
-
-
-
-
-
 
 function flip(e){
     if (e.target.innerText === "Filter good dogs: ON"){
@@ -72,21 +66,21 @@ function grabDogCard(e){
     renderDogInfo(e)
   }
 }
-function fetchToys(){
-  fetch(url)
-  .then(function(resp){
-    return resp.json();
-  })
-  .then(dogs => renderdogsToDom(dogs))
-}
-function renderdogsToDom(dogs){
-  alldogs = dogs
-  dogs.forEach(renderSingleDogToDom)
-}
 function renderSingleDogToDom(dog){
   let dogBar = document.querySelector('#dog-bar')
   document.querySelector('#dog-bar').innerHTML += `
   <span data-id=${dog.id}>${dog.name}</span>
 
   `
+}
+function renderdogsToDom(dogs){
+  alldogs = dogs
+  dogs.forEach(renderSingleDogToDom)
+}
+function fetchToys(){
+  fetch(url)
+  .then(function(resp){
+    return resp.json();
+  })
+  .then(dogs => renderdogsToDom(dogs))
 }
