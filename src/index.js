@@ -80,6 +80,7 @@ function updateGoodBadData(){
       return response.json()
     })
     .then(function(res){
+      console.log(res)
       // dogs = dogs.map((dog => dog.id == res.id))
       dog = dogs.find(dog => dog.id == res.id)
       dog.isGoodDog = res.isGoodDog
